@@ -2,6 +2,8 @@ package affichage;
 
 
 
+
+
 import javafx.collections.ObservableList;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
@@ -45,8 +47,9 @@ public class ThirdScene {
 
             // Exemple simple de traitement de connexion (vérifier si les champs sont remplis)
             if (username.equals("user") && password.equals("4444")) {
-                System.out.println("Connexion réussie !");
                 
+                Scene forthScene = ForthScene.getScene(primaryStage);
+                primaryStage.setScene(forthScene);  // Changer de scène
                 
             } else {
                 System.out.println("Échec de la connexion. Essayez encore.");
