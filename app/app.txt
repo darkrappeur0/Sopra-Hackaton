@@ -1,0 +1,8 @@
+Le répertoire app/ contient le code pour les applications frontales (mobile et desktop).
+
+    mobile/ : Divisé en deux sous-répertoires pour Android et iOS.
+        android/ : Contient le code spécifique pour l'application Android (Java/Kotlin, Gradle).
+        ios/ : Contient le code spécifique pour l'application iOS (Swift, Xcode).
+    desktop/ : Le code pour l'interface logicielle utilisée par les gestionnaires de la ville.
+        src/ : Le code source de l’application desktop (JavaFX, Electron.js, etc.).
+        resources/ : Contient les fichiers statiques, comme les images, les icônes, ou les fichiers de configuration spécifiques à l'application.

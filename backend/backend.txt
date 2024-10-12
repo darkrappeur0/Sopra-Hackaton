@@ -1,0 +1,10 @@
+Le répertoire backend/ contient tout le code côté serveur qui gère les services de l’application.
+
+    api/ : Contient les routes, les contrôleurs et les services qui gèrent la logique métier et les communications API (REST, GraphQL, WebSockets).
+        controllers/ : Gestion des requêtes entrantes et réponses.
+        models/ : Définitions des modèles de données.
+        services/ : Logique métier, traitement des données.
+        routes/ : Définition des routes de l'API.
+    config/ : Configuration des services (base de données, variables d'environnement, etc.).
+    database/ : Scripts SQL, migrations de base de données, et schémas.
+    tests/ : Tests unitaires et d'intégration spécifiques au backend.
