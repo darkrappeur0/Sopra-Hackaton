@@ -1,4 +1,4 @@
-package Interfaceview;
+package PartieJava;
 
 import javafx.collections.*;
 import javafx.scene.layout.*;
