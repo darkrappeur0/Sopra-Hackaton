@@ -1,12 +1,9 @@
-package PartieJava;
+import support.*;
 
 import javafx.application.Application;
 import javafx.stage.*;
 import javafx.scene.*;
 import javafx.scene.paint.*;
-
-
-
 
 public class Interface extends Application{
 
@@ -16,6 +13,7 @@ public class Interface extends Application{
     @Override
     public void start(Stage primaryStage) throws Exception
     {
+
         /* Color b1 = Color.BLUE;
         Color b2 = Color.WHITE;
         Scene sc1 = new Scene(new Group(),1280.0,720.0, b1);
@@ -23,7 +21,7 @@ public class Interface extends Application{
         primaryStage.setScene(sc1);
         primaryStage.setTitle("Mon premier programme"); */
 
-        Scene mainViewScene = new Scene(new Group());
+        Scene mainViewScene = new Scene(new MainView(20));
         primaryStage.setScene(mainViewScene);
         primaryStage.setTitle(WINDOW_TITLE);
         primaryStage.setWidth(WINDOW_WIDTH);
