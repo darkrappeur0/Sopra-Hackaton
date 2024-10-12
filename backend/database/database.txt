@@ -1,0 +1,1 @@
+Contient les scripts de gestion de la base de données (migration, schémas, etc.).

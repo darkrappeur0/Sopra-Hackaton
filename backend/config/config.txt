@@ -1,0 +1,1 @@
+Contient la configuration de l’application (connexion à la base de données, variables d'environnement, etc.).

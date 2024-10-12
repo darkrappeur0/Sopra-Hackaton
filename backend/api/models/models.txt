@@ -1,0 +1,1 @@
+models/ : Définit les objets manipulés (piétons, positions GPS, etc.).

@@ -1,4 +1,4 @@
-Le répertoire backend/ contient tout le code côté serveur qui gère les services de l’application.
+Le dossier backend/ de votre projet est responsable de gérer la logique métier, les API, et la communication entre votre application frontale et les bases de données ou services externes. Pour intégrer une géolocalisation active des piétons sur une carte (comme Google Maps ou OpenStreetMap), le backend doit gérer la collecte des données de localisation des piétons, leur traitement, et leur envoi à l'API de la carte.
 
     api/ : Contient les routes, les contrôleurs et les services qui gèrent la logique métier et les communications API (REST, GraphQL, WebSockets).
         controllers/ : Gestion des requêtes entrantes et réponses.

@@ -1,0 +1,1 @@
+Tests automatisés pour s'assurer que le backend fonctionne correctement.
