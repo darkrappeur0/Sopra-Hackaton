@@ -13,19 +13,13 @@ public class Interface extends Application{
     @Override
     public void start(Stage primaryStage) throws Exception
     {
-
-        /* Color b1 = Color.BLUE;
-        Color b2 = Color.WHITE;
-        Scene sc1 = new Scene(new Group(),1280.0,720.0, b1);
-        Scene sc2 = new Scene(new Group(),1280.0,520.0, b2);
-        primaryStage.setScene(sc1);
-        primaryStage.setTitle("Mon premier programme"); */
-
+        //Color b1 = Color.BLUE;
         Scene mainViewScene = new Scene(new MainView(20));
         primaryStage.setScene(mainViewScene);
         primaryStage.setTitle(WINDOW_TITLE);
         primaryStage.setWidth(WINDOW_WIDTH);
         primaryStage.setHeight(WINDOW_HEIGHT);
+        primaryStage.setResizable(true);
         primaryStage.show();
     }
     public static void main(String argv[]){
