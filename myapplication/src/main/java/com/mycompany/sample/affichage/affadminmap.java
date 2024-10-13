@@ -93,6 +93,7 @@ public class affadminmap {
     }
 
 
+    // d
 
     public static Scene getScene(Stage primaryStage) {
         // Créer une vue de carte
