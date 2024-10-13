@@ -26,14 +26,18 @@ public class SecondScene {
         // Bouton pour se connecter
         Button loginButton = new Button("Se connecter");
 
+        Button retour = new Button("Retour");
+
         // Ajouter les éléments à la grille
         grid.add(userLabel, 0, 0);
         grid.add(userField, 1, 0);
         grid.add(passLabel, 0, 1);
         grid.add(passField, 1, 1);
         grid.add(loginButton, 1, 2);
+        grid.add(retour, 1, 3);
 
         // Gestion des action des boutons
+
         loginButton.setOnAction(e -> {
             String username = userField.getText();
             String password = passField.getText();
@@ -47,6 +51,10 @@ public class SecondScene {
             } else {
                 System.out.println("Échec de la connexion. Essayez encore.");
             }
+        });
+        retour.setOnAction(e -> {
+            Scene retour1 = FirstScene.getScene(primaryStage);
+            primaryStage.setScene(retour1);  // Changer de scène
         });
 
         // Création et renvoie de la scène

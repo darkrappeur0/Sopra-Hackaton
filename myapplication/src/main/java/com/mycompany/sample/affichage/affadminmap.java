@@ -14,16 +14,12 @@ import javafx.application.Application;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.*;
+import javafx.scene.control.*;
+import javafx.scene.image.*;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
+import javafx.scene.shape.*;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 
@@ -140,11 +136,82 @@ public class affadminmap {
         timer.start();  // Démarrer le timer
 
 
-        // Créer la scène et ajouter la carte
+        Button but2 = new Button("Assistance-Messagerie");
+        Button but3 = new Button("Compte");
+        ComboBox<String> lieu = new ComboBox<>();
+        GridPane grid = new GridPane();
         StackPane root = new StackPane();
-        root.getChildren().add(mapView);
+        Rectangle blueSquare = new Rectangle(1010, 360); // Largeur et hauteur du carré
+        
 
-        Scene scene = new Scene(root, 1000, 700);
+        // Modification du carée
+        blueSquare.setFill(Color.NAVY);  // Remplir le carré avec la couleur bleue
+
+        /* 
+         *              Set up de la selection des lieu
+         * 
+         */
+
+        lieu.setEditable(true); //possible a écrit sur cette selection
+        lieu.getItems().addAll("12/10/2024,23:30,71 Bd François Mitterrand 63000 Clermont-Ferrand ,lampadaire éteint","11/10/2024,23:20,33 Rue du Sable d'Etampes 63400 Chamalières,lampadaire allumée"
+        ,"12/10/2024,23:10,66 Rue André Theuriet 63000 Clermont-Ferrand,lampadaire éteint","13/10/2024,22:40,23 Rue Horace Vernet 63000 Clermont-Ferrand,lampadaire allumée","10/10/2024,21:50,113 Av. Joseph Claussat 63400 Chamalières,lampadaire allumée");
+
+         
+        /*
+         * 
+         *              Set up de la grille
+         * 
+         */
+
+         grid.setHgap(10);
+        grid.setVgap(10);
+        
+
+        grid.setPickOnBounds(false);  // Permet aux clics en dehors des composants de passer à la carte
+        grid.setMouseTransparent(false);  // Rendre les boutons et autres interactifs
+
+
+        //remplissage de la grille par les différents éléments
+
+
+         grid.add(blueSquare, 0, 42);  // Positionne le carré en bas
+        
+         // Placer le bouton but2 en bas à droite du carré bleu
+         GridPane.setConstraints(but2, 1, 42);  // Positionner à la droite du carré bleu
+         grid.add(but2, 0, 42);  // Ajouter le bouton dans la même cellule que le carré bleu
+         GridPane.setHalignment(but2, javafx.geometry.HPos.RIGHT);  // Aligner à droite
+         GridPane.setValignment(but2, javafx.geometry.VPos.BOTTOM); // Aligner en bas
+ 
+         // Ajouter la ComboBox au milieu du carré bleu
+         grid.add(lieu, 0, 42);  // Ajout dans la même cellule
+         GridPane.setColumnSpan(lieu, 2); // Faire en sorte qu'il prenne toute la largeur du carré
+         GridPane.setValignment(lieu, javafx.geometry.VPos.CENTER); // Aligner verticalement au centre
+         GridPane.setHalignment(lieu, javafx.geometry.HPos.CENTER); // Aligner horizontalement au centre
+         
+         // Placer le bouton but3 en haut à droite de l'écran
+         grid.add(but3, 0, 0);  // Ajouter le bouton
+ 
+
+        //remplissage du noeud root par les différents éléments
+        root.getChildren().addAll(mapView,grid);
+
+
+        /*
+         * 
+         *          Intéraction des boutons
+         * 
+         */
+        but2.setOnAction(e -> {
+            Scene assismesScene = AffRapport.getScene(primaryStage);
+            primaryStage.setScene(assismesScene);  // Changer de scène
+        }); 
+        but3.setOnAction(e -> {
+            Scene aaaaa = AffadminCompte.getScene(primaryStage);
+            primaryStage.setScene(aaaaa);  // Changer de scène
+        });
+
+        //création et renvoie de la scène
+        Scene scene = new Scene(root, 1000, 800);
 
         return scene;
 
