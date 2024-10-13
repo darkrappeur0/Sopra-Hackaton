@@ -8,6 +8,8 @@ import com.gluonhq.charm.glisten.control.FloatingActionButton;
 import com.gluonhq.charm.glisten.mvc.View;
 import com.gluonhq.charm.glisten.visual.MaterialDesignIcon;
 import com.gluonhq.charm.glisten.visual.Swatch;
+
+import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
@@ -91,6 +93,10 @@ public class Main extends Application {
     //     launch(args);
     // }
 
+    private double previousZoom;
+    private MapPoint previousCenter;
+
+    
     public class LampadaireLayer extends MapLayer {
 
         private final List<MapPoint> lampadairePoints;
@@ -98,7 +104,7 @@ public class Main extends Application {
     
         public LampadaireLayer(List<MapPoint> lampadairePoints) {
             this.lampadairePoints = lampadairePoints;
-            this.lampadaireIcon = new Image("file:lampadaire.png"); // Icône de lampadaire
+            this.lampadaireIcon = new Image(getClass().getResource("/images/icones/lampadaire.png").toExternalForm()); // Icône de lampadaire
         }
     
         @Override
@@ -125,6 +131,7 @@ public class Main extends Application {
         // Créer une vue de carte
         MapView mapView = new MapView();
 
+        
         List<MapPoint> lampadaires = Arrays.asList(
             new MapPoint(45.777222, 3.087025),  // Place de Jaude
             new MapPoint(45.779235, 3.082567),  // Rue Blatin
@@ -144,6 +151,27 @@ public class Main extends Application {
 
         // Ajouter la couche à la carte
         mapView.addLayer(lampadaireLayer);
+
+        // Initialiser les variables pour le suivi des changements
+        previousZoom = mapView.getZoom();
+        previousCenter = mapView.getCenter();
+
+        // Créer un AnimationTimer pour surveiller les changements
+        AnimationTimer timer = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                // Vérification des propriétés de la carte avec un seuil
+                if (Math.abs(mapView.getZoom() - previousZoom) > 0.01 || 
+                    Math.abs(mapView.getCenter().getLatitude() - previousCenter.getLatitude()) > 0.0001 || 
+                    Math.abs(mapView.getCenter().getLongitude() - previousCenter.getLongitude()) > 0.0001) {
+                    lampadaireLayer.layoutLayer();  // Recalculer les positions
+                    previousZoom = mapView.getZoom();
+                    previousCenter = mapView.getCenter();
+                }
+            }
+        };
+        timer.start();  // Démarrer le timer
+
 
         // Créer la scène et ajouter la carte
         StackPane root = new StackPane();
