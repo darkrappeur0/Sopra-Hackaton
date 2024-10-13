@@ -11,12 +11,16 @@ import javafx.stage.Stage;
 
 
 public class AffadminCompte{
-    public static Scene getScene(Stage primaryStage) {
+    public static Scene getScene(Stage primaryStage,String name, String username, String firstname) {
         GridPane grid = new GridPane();
         grid.setHgap(10);
         grid.setVgap(10);
 
-        Compte c = new Compte("test","test","admin");
+        Compte c = new Compte(firstname,name,username);
+
+        c.setNom(name);
+        c.setPrenom(firstname);
+        c.setPseudo(username);
 
         // création des champs a afficher
         
@@ -65,12 +69,8 @@ public class AffadminCompte{
             String nom3 = nomField.getText();
             String prenom3 = prenomField.getText();
             String pseudo3 = pseudoField.getText();
-            c.setNom(nom3);
-            c.setPrenom(prenom3);
-            c.setPseudo(pseudo3);
-
-
-            
+            Scene reacScene = AffadminCompte.getScene(primaryStage,nom3,pseudo3,prenom3);
+            primaryStage.setScene(reacScene);  // Changement de scène
         });
         
 

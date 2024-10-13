@@ -155,7 +155,7 @@ public class affichmap {
             primaryStage.setScene(assismesScene);  // Changer de scène
         }); 
         but3.setOnAction(e -> {
-            Scene aaaaa = AffCompte.getScene(primaryStage);
+            Scene aaaaa = AffCompte.getScene(primaryStage,"test","user","test");
             primaryStage.setScene(aaaaa);  // Changer de scène
         });
 

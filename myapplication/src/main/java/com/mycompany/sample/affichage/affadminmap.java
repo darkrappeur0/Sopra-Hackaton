@@ -206,7 +206,7 @@ public class affadminmap {
             primaryStage.setScene(assismesScene);  // Changer de scène
         }); 
         but3.setOnAction(e -> {
-            Scene aaaaa = AffadminCompte.getScene(primaryStage);
+            Scene aaaaa = AffadminCompte.getScene(primaryStage,"test","admin","test");
             primaryStage.setScene(aaaaa);  // Changer de scène
         });
 
