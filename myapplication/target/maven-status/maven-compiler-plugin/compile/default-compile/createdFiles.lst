@@ -1,5 +1,7 @@
-com\mycompany\sample\Main$1.class
-com\mycompany\sample\Main.class
-com\mycompany\sample\Main$StreetData.class
-com\mycompany\sample\Main$LampadaireLayer.class
-com\mycompany\sample\Main$StreetLayer.class
+com\mycompany\sample\affichage\classprojet\Compte.class
+com\mycompany\sample\affichage\classprojet\Rapport.class
+com\mycompany\sample\affichage\ThirdScene.class
+com\mycompany\sample\affichage\affichmap.class
+com\mycompany\sample\affichage\AssisMes.class
+com\mycompany\sample\affichage\affichmap$LampadaireLayer.class
+com\mycompany\sample\affichage\AffCompte.class

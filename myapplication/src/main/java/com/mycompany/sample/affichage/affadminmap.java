@@ -48,24 +48,45 @@ public class affadminmap {
 
         private final List<MapPoint> lampadairePoints;
         private final Image lampadaireIcon;
+        private final List<Node> icons; // Liste pour stocker les icônes de lampadaire
     
         public LampadaireLayer(List<MapPoint> lampadairePoints) {
             this.lampadairePoints = lampadairePoints;
             this.lampadaireIcon = new Image(getClass().getResource("/images/icones/lampadaire.png").toExternalForm()); // Icône de lampadaire
+            this.icons = new ArrayList<>(); // Initialiser la liste d'icônes
+        
+            // Initialiser les icônes une fois
+            for (int i = 0; i < lampadairePoints.size(); i++) {
+                Node icon = new ImageView(lampadaireIcon);
+                icons.add(icon); // Ajouter chaque icône à la liste
+                getChildren().add(icon); // Ajouter à la couche
+            }
         }
     
         @Override
-        protected void layoutLayer() {
-            getChildren().clear(); // Nettoie les marqueurs précédents
+        // protected void layoutLayer() {
+        //     //getChildren().clear(); // Nettoie les marqueurs précédents
     
-            for (MapPoint point : lampadairePoints) {
-                Node icon = new ImageView(lampadaireIcon);
+        //     for (MapPoint point : lampadairePoints) {
+                
+        //         Point2D mapPoint = baseMap.getMapPoint(point.getLatitude(), point.getLongitude());
+    
+        //         if (mapPoint != null) {
+        //             Node icon = icons.get(i); // Récupérer l'icône préexistante
+        //             icon.setTranslateX(mapPoint.getX());
+        //             icon.setTranslateY(mapPoint.getY());
+                    
+        //     }
+        // }
+        protected void layoutLayer() {
+            for (int i = 0; i < lampadairePoints.size(); i++) {
+                MapPoint point = lampadairePoints.get(i);
                 Point2D mapPoint = baseMap.getMapPoint(point.getLatitude(), point.getLongitude());
     
                 if (mapPoint != null) {
+                    Node icon = icons.get(i); // Récupérer l'icône préexistante
                     icon.setTranslateX(mapPoint.getX());
                     icon.setTranslateY(mapPoint.getY());
-                    getChildren().add(icon); // Ajoute l'icône sur la carte
                 }
             }
         }
