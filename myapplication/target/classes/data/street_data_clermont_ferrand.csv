@@ -1,0 +1,6 @@
+StreetName,LatitudeStart,LongitudeStart,LatitudeEnd,LongitudeEnd,Color
+Rue de la République,45.779500,3.087200,45.778200,3.085900,green
+Avenue de l'Union,45.779800,3.083000,45.780500,3.084500,orange
+Boulevard François Mitterrand,45.777000,3.086500,45.776000,3.088000,red
+Rue Blatin,45.779235,3.082567,45.779200,3.082700,orange
+Avenue Julien,45.780819,3.087329,45.781000,3.088000,green
