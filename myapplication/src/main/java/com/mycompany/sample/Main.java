@@ -1,5 +1,12 @@
 package com.mycompany.sample;
 
+import com.mycompany.sample.affichage.*;
+
+import javafx.application.Application;
+import javafx.stage.Stage;
+import javafx.scene.Scene;
+
+
 import com.gluonhq.attach.display.DisplayService;
 import com.gluonhq.attach.util.Platform;
 import com.gluonhq.charm.glisten.application.AppManager;
@@ -8,14 +15,10 @@ import com.gluonhq.charm.glisten.control.FloatingActionButton;
 import com.gluonhq.charm.glisten.mvc.View;
 import com.gluonhq.charm.glisten.visual.MaterialDesignIcon;
 import com.gluonhq.charm.glisten.visual.Swatch;
-
-import javafx.animation.AnimationTimer;
-import javafx.application.Application;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -24,7 +27,6 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.stage.Stage;
 import javafx.util.Pair;
 
 import com.gluonhq.maps.MapLayer;
@@ -40,147 +42,14 @@ import static com.gluonhq.charm.glisten.application.AppManager.HOME_VIEW;
 
 public class Main extends Application {
 
-    // private final AppManager appManager = AppManager.initialize(this::postInit);
-
-    // @Override
-    // public void init() {
-    //     appManager.addViewFactory(HOME_VIEW, () -> {
-    //         FloatingActionButton fab = new FloatingActionButton(MaterialDesignIcon.SEARCH.text,
-    //                 e -> System.out.println("Search"));
-
-    //         ImageView imageView = new ImageView(new Image(Main.class.getResourceAsStream("openduke.png")));
-    //         imageView.setFitHeight(200);
-    //         imageView.setPreserveRatio(true);
-
-    //         Label label = new Label("Hello, My Gluon Application!");
-
-    //         VBox root = new VBox(20, imageView, label);
-    //         root.setAlignment(Pos.CENTER);
-
-    //         View view = new View(root) {
-    //             @Override
-    //             protected void updateAppBar(AppBar appBar) {
-    //                 appBar.setTitleText("My Gluon Application");
-    //             }
-    //         };
-
-    //         fab.showOn(view);
-
-    //         return view;
-    //     });
-    // }
-
-    // @Override
-    // public void start(Stage stage) {
-    //     appManager.start(stage);
-    // }
-
-    // private void postInit(Scene scene) {
-    //     Swatch.LIGHT_GREEN.assignTo(scene);
-    //     scene.getStylesheets().add(Main.class.getResource("styles.css").toExternalForm());
-    //     ((Stage) scene.getWindow()).getIcons().add(new Image(Main.class.getResourceAsStream("/icon.png")));
-
-    //     if (Platform.isDesktop()) {
-    //         Dimension2D dimension2D = DisplayService.create()
-    //                 .map(DisplayService::getDefaultDimensions)
-    //                 .orElse(new Dimension2D(640, 480));
-    //         scene.getWindow().setWidth(dimension2D.getWidth());
-    //         scene.getWindow().setHeight(dimension2D.getHeight());
-    //     }
-    // }
-
-    // public static void main(String[] args) {
-    //     launch(args);
-    // }
-
-    private double previousZoom;
-    private MapPoint previousCenter;
-
-    
-    public class LampadaireLayer extends MapLayer {
-
-        private final List<MapPoint> lampadairePoints;
-        private final Image lampadaireIcon;
-    
-        public LampadaireLayer(List<MapPoint> lampadairePoints) {
-            this.lampadairePoints = lampadairePoints;
-            this.lampadaireIcon = new Image(getClass().getResource("/images/icones/lampadaire.png").toExternalForm()); // Icône de lampadaire
-        }
-    
-        @Override
-        protected void layoutLayer() {
-            getChildren().clear(); // Nettoie les marqueurs précédents
-    
-            for (MapPoint point : lampadairePoints) {
-                Node icon = new ImageView(lampadaireIcon);
-                Point2D mapPoint = baseMap.getMapPoint(point.getLatitude(), point.getLongitude());
-    
-                if (mapPoint != null) {
-                    icon.setTranslateX(mapPoint.getX());
-                    icon.setTranslateY(mapPoint.getY());
-                    getChildren().add(icon); // Ajoute l'icône sur la carte
-                }
-            }
-        }
-    }
-
-
-
     @Override
     public void start(Stage primaryStage) {
-        // Créer une vue de carte
-        MapView mapView = new MapView();
+        // Charger la première scène en démarrant l'application
+        Scene firstScene = FirstScene.getScene(primaryStage);
 
-        
-        List<MapPoint> lampadaires = Arrays.asList(
-            new MapPoint(45.777222, 3.087025),  // Place de Jaude
-            new MapPoint(45.779235, 3.082567),  // Rue Blatin
-            new MapPoint(45.780819, 3.087329)   // Avenue Julien
-            // Ajoutez d'autres points selon vos besoins
-        );
-
-        // Centrer la carte sur Place Jaude à Clermont-Ferrand
-        double latitude = 45.774162;
-        double longitude = 3.082231;
-        MapPoint placeJaude = new MapPoint(latitude, longitude);
-        mapView.setCenter(placeJaude);
-        mapView.setZoom(15.0);  // Zoom sur la ville
-
-        // Créer une couche personnalisée pour afficher un marqueur
-        LampadaireLayer lampadaireLayer = new LampadaireLayer(lampadaires);
-
-        // Ajouter la couche à la carte
-        mapView.addLayer(lampadaireLayer);
-
-        // Initialiser les variables pour le suivi des changements
-        previousZoom = mapView.getZoom();
-        previousCenter = mapView.getCenter();
-
-        // Créer un AnimationTimer pour surveiller les changements
-        AnimationTimer timer = new AnimationTimer() {
-            @Override
-            public void handle(long now) {
-                // Vérification des propriétés de la carte avec un seuil
-                if (Math.abs(mapView.getZoom() - previousZoom) > 0.01 || 
-                    Math.abs(mapView.getCenter().getLatitude() - previousCenter.getLatitude()) > 0.0001 || 
-                    Math.abs(mapView.getCenter().getLongitude() - previousCenter.getLongitude()) > 0.0001) {
-                    lampadaireLayer.layoutLayer();  // Recalculer les positions
-                    previousZoom = mapView.getZoom();
-                    previousCenter = mapView.getCenter();
-                }
-            }
-        };
-        timer.start();  // Démarrer le timer
-
-
-        // Créer la scène et ajouter la carte
-        StackPane root = new StackPane();
-        root.getChildren().add(mapView);
-
-        Scene scene = new Scene(root, 800, 600);
-
-        primaryStage.setTitle("Carte centrée sur Place Jaude, Clermont-Ferrand");
-        primaryStage.setScene(scene);
+        // Configurer la fenêtre principale avec la première scène
+        primaryStage.setTitle("Changement de scènes avec plusieurs fichiers");
+        primaryStage.setScene(firstScene);
         primaryStage.show();
     }
 
@@ -188,5 +57,3 @@ public class Main extends Application {
         launch(args);
     }
 }
-
-
