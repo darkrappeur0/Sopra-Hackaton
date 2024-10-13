@@ -143,8 +143,6 @@ public class affichmap {
 
         //remplissage du noeud root par les différents éléments
         root.getChildren().addAll(mapView,grid);
-
-
         /*
          * 
          *          Intéraction des boutons
@@ -166,5 +164,3 @@ public class affichmap {
     }
 
 }
-
-
